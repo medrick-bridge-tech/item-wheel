@@ -2,18 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryItem : MonoBehaviour
+public interface InventoryItem
 {
-    private int _count;
-    
-    
-    void Start()
-    {
-        
-    }
+    int Count { get; set; }
+    bool IsActive { get; set; }
 
-    void Update()
-    {
-        
-    }
+    void SetActive(bool isActive);
 }
