@@ -6,4 +6,9 @@ using UnityEngine;
 public class Pistol : InventoryItem
 {
     public event Action onItemSelected;
+    
+    public void SelectItem()
+    {
+        onItemSelected?.Invoke();
+    }
 }
