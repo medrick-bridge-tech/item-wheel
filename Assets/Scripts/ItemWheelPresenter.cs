@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -11,18 +14,18 @@ public class ItemWheelPresenter : MonoBehaviour
     
     [Header("View")] 
     [SerializeField] private Image _wheelImage;
-    [SerializeField] private Image _knifeImage;
-    [SerializeField] private Image _pistolImage;
-    [SerializeField] private Image _rifleImage;
-    [SerializeField] private Image _machineGunImage;
+    [SerializeField] private Button _knifeButton;
+    [SerializeField] private Button _pistolButton;
+    [SerializeField] private Button _rifleButton;
+    [SerializeField] private Button _machineGunButton;
 
 
     void Start()
     {
         if (_itemWheel)
         {
-            _itemWheel.newItemWasAdded += OnNewItemWasAdded;
-            _itemWheel.itemWasRemoved += OnItemWasRemoved;
+            _itemWheel.onItemAdded += AddItem;
+            _itemWheel.onItemRemoved += RemoveItem;
         }
     }
     
@@ -41,26 +44,26 @@ public class ItemWheelPresenter : MonoBehaviour
         _itemWheel?.AddItem(item);
     }
 
-    public void OnNewItemWasAdded(InventoryItem item)
+    public void AddItem(InventoryItem item)
     {
         Debug.Log("New item was added.");
         Debug.Log(_itemWheel._inventoryItems.Count);
         
         if (item is Knife)
         {
-            _knifeImage.gameObject.SetActive(true);
+            _knifeButton.gameObject.SetActive(true);
         }
         else if (item is Pistol)
         {
-            _pistolImage.gameObject.SetActive(true);
+            _pistolButton.gameObject.SetActive(true);
         }
         else if (item is Rifle)
         {
-            _rifleImage.gameObject.SetActive(true);
+            _rifleButton.gameObject.SetActive(true);
         }
         else if (item is MachineGun)
         {
-            _machineGunImage.gameObject.SetActive(true);
+            _machineGunButton.gameObject.SetActive(true);
         }
     }
     
@@ -69,34 +72,34 @@ public class ItemWheelPresenter : MonoBehaviour
         _itemWheel?.RemoveItem(item);
     }
 
-    public void OnItemWasRemoved(InventoryItem item)
+    public void RemoveItem(InventoryItem item)
     {
         Debug.Log("Item was removed.");
         Debug.Log(_itemWheel._inventoryItems.Count);
         
         if (item is Knife)
         {
-            _knifeImage.gameObject.SetActive(false);
+            _knifeButton.gameObject.SetActive(false);
         }
         else if (item is Pistol)
         {
-            _pistolImage.gameObject.SetActive(false);
+            _pistolButton.gameObject.SetActive(false);
         }
         else if (item is Rifle)
         {
-            _rifleImage.gameObject.SetActive(false);
+            _rifleButton.gameObject.SetActive(false);
         }
         else if (item is MachineGun)
         {
-            _machineGunImage.gameObject.SetActive(false);
+            _machineGunButton.gameObject.SetActive(false);
         }
     }
 
-    public InventoryItem GetInventoryItem()
+    public InventoryItem GetInventoryItem(Type itemType)
     {
         foreach (var inventoryItem in _itemWheel._inventoryItems)
         {
-            if (inventoryItem is Knife)
+            if (inventoryItem.GetType() == itemType)
             {
                 return inventoryItem;
             }

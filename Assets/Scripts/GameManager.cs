@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private ItemWheelPresenter _itemWheelPresenter;
@@ -41,7 +42,19 @@ public class GameManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
-            _itemWheelPresenter?.RemoveFromItemWheel(_itemWheelPresenter.GetInventoryItem());
+            _itemWheelPresenter?.RemoveFromItemWheel(_itemWheelPresenter.GetInventoryItem(typeof(Knife)));
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            _itemWheelPresenter?.RemoveFromItemWheel(_itemWheelPresenter.GetInventoryItem(typeof(Pistol)));
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            _itemWheelPresenter?.RemoveFromItemWheel(_itemWheelPresenter.GetInventoryItem(typeof(Rifle)));
+        }
+        else if (Input.GetKeyDown(KeyCode.V))
+        {
+            _itemWheelPresenter?.RemoveFromItemWheel(_itemWheelPresenter.GetInventoryItem(typeof(MachineGun)));
         }
     }
 }

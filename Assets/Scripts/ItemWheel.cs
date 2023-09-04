@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class ItemWheel : MonoBehaviour
 {
-    public event Action<InventoryItem> newItemWasAdded; 
-    public event Action<InventoryItem> itemWasRemoved;
+    public event Action<InventoryItem> onItemAdded; 
+    public event Action<InventoryItem> onItemRemoved;
 
     public List<InventoryItem> _inventoryItems = new List<InventoryItem>();
 
@@ -24,22 +24,22 @@ public class ItemWheel : MonoBehaviour
     public void AddItem(InventoryItem item)
     {
         _inventoryItems?.Add(item);
-        NewItemWasAdded(item);
+        ItemAdded(item);
     }
     
-    public void NewItemWasAdded(InventoryItem item)
+    public void ItemAdded(InventoryItem item)
     {
-        newItemWasAdded?.Invoke(item);
+        onItemAdded?.Invoke(item);
     }
 
     public void RemoveItem(InventoryItem item)
     {
         _inventoryItems?.Remove(item);
-        ItemWasRemoved(item);
+        ItemRemoved(item);
     }
 
-    public void ItemWasRemoved(InventoryItem item)
+    public void ItemRemoved(InventoryItem item)
     {
-        itemWasRemoved?.Invoke(item);
+        onItemRemoved?.Invoke(item);
     }
 }
