@@ -5,17 +5,18 @@ namespace ItemWheelModule.Presenter
 {
     public class ItemWheel
     {
-        public Action<InventoryItem> onWheelItemsAdded;
-        public Action<InventoryItem> onWheelItemRemoved;
+        public Action<InventoryItem> OnWheelItemAdded;
+        public Action<InventoryItem> OnWheelItemRemoved;
 
-        public Action<int> onItemSelected;
-
+        public Action<int> OnItemSelected;
+        
+        
         public void Setup(ItemWheelModule.Model.ItemWheel itemWheelModel, ItemWheelModule.View.ItemWheel itemWheelView)
         {
-            onWheelItemsAdded += (item) => itemWheelView.AddToItemWheel(item);
-            onWheelItemRemoved += (item) => itemWheelView.RemoveItem(item);
+            OnWheelItemAdded += (item) => itemWheelModel.AddItem(item);
+            OnWheelItemRemoved += (item) => itemWheelModel.RemoveItem(item);
 
-            onItemSelected += (index) => itemWheelModel.SelectItem(index);
+            OnItemSelected += (index) => itemWheelModel.SelectItem(index);
         }
     }
 }

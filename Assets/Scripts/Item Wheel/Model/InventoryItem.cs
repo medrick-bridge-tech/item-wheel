@@ -5,16 +5,18 @@ using UnityEngine;
 
 namespace ItemWheelModule.Model
 {
-    public abstract class InventoryItem
+    public class InventoryItem
     {
-        private string itemId;
+        public string _itemId;
+        public GameObject _itemButton;
         public Action OnItemSelected;
         public Action OnItemAdded;
         public Action OnItemRemoved;
 
-        protected InventoryItem(string itemId)
+        public InventoryItem(string itemId, GameObject itemButton)
         {
-            this.itemId = itemId;
+            _itemId = itemId;
+            _itemButton = itemButton;
         }
     }
 }
