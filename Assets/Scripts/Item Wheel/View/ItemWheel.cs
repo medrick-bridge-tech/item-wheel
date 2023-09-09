@@ -59,19 +59,27 @@ namespace ItemWheelModule.View
             }
             else if (Input.GetKeyDown(KeyCode.Z))
             {
-                RemoveFromItemWheel(GetInventoryItemIndex("Knife"));
+                int itemToRemoveIndex = GetInventoryItemIndex("Knife");
+                if (itemToRemoveIndex != -1)
+                    RemoveFromItemWheel(GetInventoryItemIndex("Knife"));
             }
             else if (Input.GetKeyDown(KeyCode.X))
             {
-                RemoveFromItemWheel(GetInventoryItemIndex("Pistol"));
+                int itemToRemoveIndex = GetInventoryItemIndex("Pistol");
+                if (itemToRemoveIndex != -1)
+                    RemoveFromItemWheel(GetInventoryItemIndex("Pistol"));
             }
             else if (Input.GetKeyDown(KeyCode.C))
             {
-                RemoveFromItemWheel(GetInventoryItemIndex("Rifle"));
+                int itemToRemoveIndex = GetInventoryItemIndex("Rifle");
+                if (itemToRemoveIndex != -1)
+                    RemoveFromItemWheel(GetInventoryItemIndex("Rifle"));
             }
             else if (Input.GetKeyDown(KeyCode.V))
             {
-                RemoveFromItemWheel(GetInventoryItemIndex("Machine gun"));
+                int itemToRemoveIndex = GetInventoryItemIndex("Machine gun");
+                if (itemToRemoveIndex != -1)
+                    RemoveFromItemWheel(GetInventoryItemIndex("Machine gun"));
             }
         }
         
@@ -117,12 +125,12 @@ namespace ItemWheelModule.View
         public void RemoveFromItemWheel(int itemIndex)
         {
             _items.RemoveAt(itemIndex);
+            presenter.OnWheelItemRemoved.Invoke(_items[itemIndex]);
             GameObject obj = GameObject.Find("ItemButton" + itemIndex.ToString());
             if (obj != null)
             {
                 Destroy(obj);
             }
-            //presenter.OnWheelItemRemoved.Invoke(item);
             UpdateItemWheelArrangement();
         }
         
